@@ -1,0 +1,4 @@
+Reference Link :- https://cloud.ibm.com/docs/cloud-object-storage/libraries?topic=cloud-object-storage-python
+
+
+Assistant url :- https://web-chat.global.assistant.watson.appdomain.cloud/preview.html?backgroundImageURL=https%3A%2F%2Fau-syd.assistant.watson.cloud.ibm.com%2Fpublic%2Fimages%2Fupx-2c1e4add-3c78-4a08-9e41-27049e2e91c3%3A%3A8ed46c39-4d7c-42ca-8ee3-d31b37be6d30&integrationID=08e35c59-25f0-4a13-8d96-4f511198a1db&region=au-syd&serviceInstanceID=2c1e4add-3c78-4a08-9e41-27049e2e91c3
