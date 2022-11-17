@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    background-color: #EFF2FA;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #777;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.links {
+    text-decoration: none;
+    color: #505050;
+}
+
+.links:hover {
+    color: #000;
+}
+
+.progress-bar.bg-primary {
+    background: #00B1FF !important;
+}
+
+.progress-bar.bg-danger {
+    background: #FF006F !important;
+}
+
+.btn-primary {
+    background: #00B1FF !important;
+    border-color: #00B1FF !important;
+}
+
+.btn-success {
+    background: #00B1FF !important;
+    border-color: #00B1FF !important;
+}
+
+.btn-danger {
+    background: #FF006F !important;
+    border-color: #FF006F !important;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.btn-outline-success {
+    border-color: #00B1FF !important;
+    color: #00B1FF !important;
+}
+
+.btn-outline-success:hover {
+    background: #00B1FF !important;
+    border-color: #00B1FF !important;
+    color: white !important;
+}
+
+.btn-outline-danger {
+    border-color: #FF006F !important;
+    color: #FF006F !important;
+}
+
+.btn-outline-danger:hover {
+    background: #FF006F !important;
+    border-color: #FF006F !important;
+    color: white !important;
+}
+
+.btn:focus, .btn:active, .btn:hover {
+    box-shadow: none !important;
+    outline: 0;
+}
+
+.text-primary {
+    color: #00B1FF !important;
+}
+
+.text-success {
+    color: #00B1FF !important;
+}
+
+.text-danger {
+    color: #FF006F !important;
+}
+
+.main h1, .signUp h1 {
+    font-weight: bold;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 10px 20px 0px rgb(206, 210, 223);
+}
+
+.card .link-primary {
+    text-decoration: none;
+    color: #00B1FF !important;
+}
+
+.card .link-danger {
+    text-decoration: none;
+    color: #FF006F !important;
+}
+
+.card .card-title {
+    font-weight: bold;
+}
+
+.main {
+    margin-bottom: 50px;
+}
+
+.signUp {
+    margin-bottom: 50px;
+}
+
+.budget {
+    margin-top: 70px;
+}
+
+.analysis {
+    margin-top: 70px;
+}
+
+.loan {
+    margin-top: 70px;
+}
+
+.goal {
+    margin-top: 70px;
+}
+
+.profile {
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+
+.expense {
+    margin-bottom: 100px;
+}
+
+.buttom {
+    margin-bottom: 100px;
+}
+
+.navbar-light {
+    background-color: #fff !important;
+    box-shadow: 0px 3px 20px 0px rgb(206, 210, 223);
+}
+
+.nav-link.actives {
+    font-weight: bold;
+}
+
+.nav-item span {
+    font-size: 20px;
+
+}
+
+.nav-item .active i {
+    color: #00B1FF;
+    font-weight: bold;
+}
+
+.budget .card.balance {
+    background: rgb(22, 148, 242);
+    background: linear-gradient(45deg, rgba(22, 148, 242, 1) 0%, rgba(11, 201, 255, 1) 100%);
+    color: white !important;
+    box-shadow: 0px 10px 20px 0px rgb(206, 210, 223) !important;
+}
+
+.budget .card.balance h3 button {
+    color: #00B1FF !important;
+}
+
+
+.incomes .card.list-incomes {
+    cursor: pointer;
+    padding: 1px 5px;
+    border-radius: 5px;
+    border: none;
+    transition: .3s;
+}
+
+.incomes .card.list-incomes.detail {
+    cursor: default;
+}
+
+.incomes .card.list-incomes:hover {
+    transform: scale(.95);
+}
+
+.incomes .card.list-incomes.empty {
+    height: 380px;
+    padding: 50px 5px;
+    margin-bottom: 20px;
+}
+
+.incomes .card.list-incomes span {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #D4F7FF;
+    color: #00B1FF;
+    font-size: 20px;
+}
+
+.incomes .card.list-incomes .status {
+    margin-bottom: 3px;
+    padding: 3px 10px;
+    background-color: #D4F7FF;
+    border-radius: 5px;
+    color: #00B1FF;
+    font-size: 12px;
+}
+
+.expense .card.list-expense {
+    cursor: pointer;
+    padding: 1px 5px;
+    border-radius: 5px;
+    border: none;
+    transition: .3s;
+}
+
+.expense .card.list-expense:hover {
+    transform: scale(.95);
+}
+
+.expense .card.list-expense.detail {
+    cursor: default;
+}
+
+.expense .card.list-expense.empty {
+    height: 380px;
+    padding: 50px 5px;
+    margin-bottom: 20px;
+}
+
+.expense .card.list-expense span {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffdfed;
+    color: #FF006F;
+    font-size: 20px;
+}
+
+.expense .card.list-expense .status {
+    margin-bottom: 3px;
+    padding: 3px 10px;
+    background-color: #ffdfed;
+    border-radius: 5px;
+    color: #FF006F;
+    font-size: 12px;
+}
+
+.addIncome {
+    margin-bottom: 50px;
+}
+
+.addExpense {
+    margin-bottom: 50px;
+}
+
+.addLoan {
+    margin-bottom: 50px;
+}
+
+.addGoal {
+    margin-bottom: 50px;
+}
+
+.detailIncome {
+    margin-bottom: 50px;
+}
+
+.detailExpense {
+    margin-bottom: 50px;
+}
+
+canvas {
+    height: 400px;
+    ;
+}
+
+@media only screen and (max-width: 768px) {
+    .main {
+        margin-top: -20px;
+    }
+
+    .budget {
+        margin-top: 10px;
+    }
+
+    .expense {
+        margin-bottom: 140px;
+    }
+
+    .profile {
+        margin-top: 10px;
+        margin-bottom: 140px;
+    }
+
+    .analysis {
+        margin-top: 10px;
+    }
+
+    .loan {
+        margin-top: 10px;
+    }
+
+    .goal {
+        margin-top: 10px;
+    }
+
+    .buttom {
+        margin-bottom: 140px;
+    }
+
+    .navbar-light {
+        border-radius: 50px;
+        box-shadow: 0px 1px 20px 0px rgb(206, 210, 223);
+        margin-bottom: 40px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .signUp {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+
+    .addIncome {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+
+    .addExpense {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+
+    .addGoal {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+
+    .detailIncome {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+
+    .detailExpense {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+
+    .addLoan {
+        margin-top: -20px;
+        margin-bottom: 50px;
+    }
+}
