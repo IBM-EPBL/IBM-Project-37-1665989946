@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../fontawesome/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/logo.jpg">
+
+    <title>Personal Expenses Tracker</title>
+</head>
+
+<body>
+
+    <section id="addIncome" class="addIncome">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class=" col-xl-6 mt-5 mb-5">
+                    <div class="justify-content-center text-center">
+                        {%if error %}
+                        <p style="color: green;">{{error}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Add Income</h3>
+                            <form class="mt-3" action="" action="{{url_for('AddIncome')}}" method="post">
+                                <div class="mb-3">
+                                    <label for="date_income" class="form-label">Income Date</label>
+                                    <input type="date" class="form-control" id="date_income" name="date_income"
+                                        autofocus required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category_income" class="form-label">Income Category</label>
+                                    <select class="form-select" id="category_income" name="category_income">
+                                        <option value="Salery,salery-id">Salery</option>
+                                        <option value="Profit,profit-id">Profit</option>
+                                        <option value="Bonus,nonus-id">Bonus</option>
+                                        <option value="Other,other-id">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="note_income" class="form-label">Income Note</label>
+                                    <textarea class="form-control" id="note_income" name="note_income" rows="3"
+                                        required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="budget_income" class="form-label">Income Budget</label>
+                                    <input type="number" class="form-control" id="budget_income" name="budget_income"
+                                        required>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-grid gap-2">
+                                            <a href="./dashboard" class="btn btn-light">Back</a>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-success" type="submit" name="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</html>

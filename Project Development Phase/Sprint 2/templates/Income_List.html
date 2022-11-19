@@ -1,0 +1,77 @@
+{%extends 'HomeBase.html'%}
+
+{%block Content%}
+
+<section id="budget" class="budget">
+    <div class="container">
+    </div>
+</section>
+
+<section id="incomes" class="incomes mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Incomes</h3>
+            </div>
+            <div class="col text-end">
+                <a href="./addincome" class="btn btn-success" title="Add Income"><i
+                        class="fas fa-angle-double-up"></i></a>
+            </div>
+        </div>
+        <div class="row list mt-3">
+            {% if session.income|length > 0%}
+            <!-- CARD START -->
+            {%for income in session.income%}
+            <div class="col-xl-6 mb-3">
+                <div class="card list-incomes">
+                    <div onclick='window.location.href = "./showincome?incomeid={{income.INCOMEID}}";'>
+                        <input type="hidden" name="incomeid" value="{{income.INCOMEID}}">
+                        <div class="card-body" data-toggle="tooltip" data-placement="top" title={{income.INCOMENOTE}}>
+                            <div class="row d-flex align-items-center">
+                                <div class="col-2 text-center">
+                                    <span>
+                                        <i class="fas fa-indian-rupee-sign"></i>
+                                    </span>
+                                </div>
+                                <div class="col-5">
+                                    <h6 class="card-text text-start">{{income.INCOMECATEGORY}}</h6>
+                                    <p class="card-text text-start text-secondary" style="font-size: 14px;">
+                                        {{income.INCOMEDATE}}</p>
+                                </div>
+                                <div class="col-5">
+                                    <p class="card-text text-success text-end"><b>IDR {{income.INCOMEAMOUNT}}</b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="card-text btn btn-primary text-center"
+                        onclick='window.location.href = "./deleteincome?incomeid={{income.INCOMEID}}";'>Delete</button>
+                </div>
+            </div>
+            {%endfor%}
+            <!-- CARD END -->
+
+            {%else%}
+
+            <!-- IF ZERO CARD START -->
+
+            <div class="col-xl-12 mt-3">
+                <div class="card list-incomes empty" onclick="document.location.href = './addincome';">
+                    <div class="card-body text-center mt-3">
+                        <span style="font-size: 50px;">
+                            <i class="fas fa-angle-double-up"></i>
+                        </span>
+                        <h3 class="card-title mt-4">Income Empty</h3>
+                        <p class="text-secondary">Oops! Your income data is empty. Please add your income data.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IF ZERO CARD END -->
+            {%endif%}
+        </div>
+    </div>
+</section>
+
+{%endblock%}
