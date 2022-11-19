@@ -1,0 +1,87 @@
+{%extends 'HomeBase.html'%}
+
+{%block Content%}
+
+<section id="expense" class="expense mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Expenses</h3>
+            </div>
+            <div class="col text-end">
+                <a href="./addexpense" class="btn btn-danger" title="Add Expense"><i
+                        class="fas fa-angle-double-down"></i></a>
+            </div>
+        </div>
+        <div class="row list mt-3">
+
+            <!-- CARD START -->
+
+            {% if session.expense|length > 0%}
+
+            {%for expense in session.expense%}
+
+            <div class="col-xl-6 mb-3">
+                <!-- document.location.href = 'detailExpense.php?code_expense=<?= $expense['code_expense']; ?>'; -->
+                <div class="card list-expense">
+                    <div onclick='window.location.href = "./showexpense?expenseid={{expense.EXPENSEID}}";'>
+                        <input type="hidden" name="expenseid" value="{{expense.EXPENSEID}}">
+                        <div class="card-body" data-toggle="tooltip" data-placement="top" title={{expense.EXPENSENOTE}}>
+                            <div class="row d-flex align-items-center">
+                                <div class="col-2 text-center">
+                                    <h6 class="card-text text-start text-danger">{{expense.EXPENSECATEGORY}}</h6>
+                                </div>
+                                <div class="col-5">
+                                    <div class="col-7 text-truncate">
+                                        <h6>{{expense.EXPENSENOTE}}</h6>
+                                    </div>
+                                    <p class="card-text text-start text-secondary" style="font-size: 14px;">
+                                        {{expense.EXPENSEDATE}}</p>
+                                </div>
+                                <div class="col-5">
+                                    <p class="card-text text-danger text-end"><b>IDR {{expense.EXPENSEAMOUNT}}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <svg data-toggle="tooltip" data-placement="top" title="Delete"
+                            onclick='window.location.href = "./deleteexpense?expenseid={{expense.EXPENSEID}}";'
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path
+                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END OF CARD -->
+
+            {%endfor%}
+
+            {%else%}
+
+            <!-- IF ZERO CARD START -->
+
+            <div class="col-xl-12 mt-3">
+                <div class="card list-expense empty" onclick="document.location.href = './addexpense';">
+                    <div class="card-body text-center mt-3">
+                        <span style="font-size: 50px;">
+                            <i class="fas fa-angle-double-down"></i>
+                        </span>
+                        <h3 class="card-title mt-4">Expense Empty</h3>
+                        <p class="text-secondary">Oops! Your expense data is empty. Please add your expense data.</p>
+                    </div>
+                </div>
+            </div>
+
+            {%endif%}
+
+            <!-- ZERO CARD END -->
+        </div>
+    </div>
+</section>
+
+{%endblock%}

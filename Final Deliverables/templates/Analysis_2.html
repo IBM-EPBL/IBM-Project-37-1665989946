@@ -1,0 +1,205 @@
+{%extends 'HomeBase.html'%}
+
+{%block Content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12 mt-3">
+            <div class="card-body">
+                <div class="row">
+                    <p class="h3 text-center">Expense Analysis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+    </div>
+</div>
+
+<section id="filter" class="filter">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mt-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="card col d-flex justify-content-center">
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                    <div class="row">
+                                        <div class="col">
+                                            Start Date:
+                                            <input onchange="filterData()" class="form-select" id="start_date"
+                                                name="start_date" type="date">
+                                            <div>
+                                                End Date:
+                                                <input onchange="filterData()" class="form-select" id="end_date"
+                                                    name="end_date" type="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card col d-flex justify-content-center" style="height: 100%;">
+                            <div class="col-xl-12">
+                                <h2 class="card-text mt-3 text-center">Total Expense</h2>
+                                <h4 class="card-text mt-3 text-danger text-center"><b><i
+                                            class="fas fa-angle-double-down"></i>
+                                        INR {{session.expe}}
+                                    </b></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="chart" class="chart">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="expense" class="expense mt-5 buttom">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Expense Category's</h3>
+            </div>
+        </div>
+        {%if session.expense|length > 0%}
+        <div class="row list mt-3">
+            {%for key, value in session.expensecat.items()%}
+            <div class="col-xl-6 mb-3">
+                <div class="card list-expense detail">
+                    <div class="card-body">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-5">
+                                <h6 class="card-text text-start">
+                                    {{key}}
+                                </h6>
+                            </div>
+                            <div class="col-5">
+                                <p class="card-text text-danger text-end"><b>IDR {{value}}
+                                    </b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</section>
+{%else%}
+<section id="expense" class="expense">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mt-3">
+                <div class="card list-expense empty" onclick="document.location.href = './addexpense';">
+                    <div class="card-body text-center mt-3">
+                        <span style="font-size: 50px;">
+                            <i class="fas fa-angle-double-down"></i>
+                        </span>
+                        <h3 class="card-title mt-4">Expense Empty</h3>
+                        <p class="text-secondary">Oops! Your expense data is empty. Please add your expense data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%endif%}
+
+<script>
+    va = '{{session["expensedatmth"]}}'
+    va = va.replaceAll('&#39;', '"')
+    mthdata = JSON.parse(va)
+    // console.log(mthdata[mthdata.length-1])
+    document.getElementById('start_date').value = String(mthdata[0]);
+    document.getElementById('end_date').value = String(mthdata[mthdata.length - 1]);
+
+
+    // labels = '{{session["expensedate"]}}';
+    // labels = JSON.parse(labels)
+    datas = JSON.parse('{{session["expensevalue"]}}')
+    const data = {
+        labels: mthdata,
+        datasets: [{
+            label: 'Expenses',
+            data: datas,
+            backgroundColor: '#ff006f1c',
+            borderColor: '#FF006F',
+            pointBackgroundColor: '#FF006F',
+            pointHitRadius: '30',
+            fill: true,
+            tension: 0.3
+        }]
+    };
+
+    function filterData() {
+        const dates2 = [...mthdata];
+        // console.log(dates2);
+
+        const startdate = document.getElementById('start_date');
+        const enddate = document.getElementById('end_date');
+        // console.log(indexstartdate);
+
+        var startDate = new Date(startdate.value.toString());
+        var endDate = new Date(enddate.value.toString());
+
+        var resultProductData = dates2.filter(a => {
+            var date = new Date(a);
+            return (date >= startDate && date <= endDate);
+        });
+        // console.log(resultProductData)
+
+        const indexstartdate = dates2.indexOf(resultProductData[0]);
+        // console.log(startDate)
+        const indexenddate = dates2.indexOf(resultProductData[resultProductData.length - 1]);
+
+        const filteredDate = dates2.slice(indexstartdate, indexenddate + 1);
+        const val = [...datas]
+        const filteredval = val.slice(indexstartdate, indexenddate + 1);
+        // console.log(indexenddate)
+
+        myChart.config.data.labels = filteredDate;
+        myChart.config.data.datasets[0].data = filteredval;
+        myChart.update();
+    }
+
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    };
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+
+{%endblock%}

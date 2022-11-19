@@ -1,0 +1,200 @@
+{%extends 'HomeBase.html'%}
+
+{%block Content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12 mt-3">
+            <div class="row">
+                <p class="h3 text-center">Income Analysis</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <?php if (count($date_income) >= 1) : ?> -->
+<section id="filter" class="filter">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mt-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="card col d-flex justify-content-center">
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                    <div class="row">
+                                        <div class="col">
+                                            Start Date:
+                                            <input onchange="filterData()" class="form-select" id="start_date"
+                                                name="start_date" type="date">
+                                            End Date:
+                                            <input onchange="filterData()" class="form-select" id="end_date"
+                                                name="end_date" type="date">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card col d-flex justify-content-center" style="height: 100%;">
+                            <div class="col-xl-12">
+                                <p class="text-center">Total Income</p>
+                                <h3 class="card-text mt-3 text-success text-center"><b><i
+                                            class="fas fa-angle-double-up"></i>
+                                        INR {{session.inco}}
+                                    </b></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="chart" class="chart">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="incomes" class="incomes mt-5 buttom">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Income Categories</h3>
+            </div>
+        </div>
+
+        {%if session.income|length > 0%}
+
+        <div class="row list mt-3">
+            {%for key, value in session.incomecat.items()%}
+            <div class="col-xl-6 mb-3">
+                <div class="card list-incomes detail">
+                    <div class="card-body">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-2 text-center">
+                            </div>
+                            <div class="col-5">
+                                <h6 class="card-text text-start">
+                                    {{key}}
+                                </h6>
+                            </div>
+                            <div class="col-5">
+                                <p class="card-text text-success text-end"><b>IDR {{value}}
+                                    </b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</section>
+{%else%}
+<section id="incomes" class="incomes buttom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mt-3">
+                <div class="card list-incomes empty" onclick="document.location.href = './addincome';">
+                    <div class="card-body text-center mt-3">
+                        <span style="font-size: 50px;">
+                            <i class="fas fa-angle-double-up"></i>
+                        </span>
+                        <h3 class="card-title mt-4">Income Empty</h3>
+                        <p class="text-secondary">Oops! Your income data is empty. Please add your income data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%endif%}
+
+<script>
+    va = '{{session["incomedatmth"]}}'
+    va = va.replaceAll('&#39;', '"')
+    mthdata = JSON.parse(va)
+    // console.log(mthdata[mthdata.length-1])
+    document.getElementById('start_date').value = String(mthdata[0]);
+    document.getElementById('end_date').value = String(mthdata[mthdata.length - 1]);
+
+
+    // labels = '{{session["incomedate"]}}';
+    // labels = JSON.parse(labels)
+    datas = JSON.parse('{{session["incomevalue"]}}')
+    // <?= json_encode($label); ?>;
+    const data = {
+        labels: mthdata,
+        datasets: [{
+            label: 'Income',
+            data: datas,
+            backgroundColor: '#00b3ff1e',
+            borderColor: '#00B1FF',
+            pointBackgroundColor: '#00B1FF',
+            pointHitRadius: '30',
+            fill: true,
+            tension: 0.3
+        }]
+    };
+
+    function filterData() {
+        const dates2 = [...mthdata];
+        // console.log(dates2);
+
+        const startdate = document.getElementById('start_date');
+        const enddate = document.getElementById('end_date');
+        // console.log(indexstartdate);
+
+        var startDate = new Date(startdate.value.toString());
+        var endDate = new Date(enddate.value.toString());
+
+        var resultProductData = dates2.filter(a => {
+            var date = new Date(a);
+            return (date >= startDate && date <= endDate);
+        });
+        // console.log(resultProductData)
+
+        const indexstartdate = dates2.indexOf(resultProductData[0]);
+        // console.log(startDate)
+        const indexenddate = dates2.indexOf(resultProductData[resultProductData.length - 1]);
+
+        const filteredDate = dates2.slice(indexstartdate, indexenddate + 1);
+        const val = [...datas]
+        const filteredval = val.slice(indexstartdate, indexenddate + 1);
+        // console.log(indexenddate)
+
+        myChart.config.data.labels = filteredDate;
+        myChart.config.data.datasets[0].data = filteredval;
+        myChart.update();
+    }
+
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    };
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+
+{%endblock%}
